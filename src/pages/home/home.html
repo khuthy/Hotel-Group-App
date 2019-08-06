@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+<div class="container">
+  
+  <div class="top" *ngFor="let hotel of hotels;">
+      <div class="navi">
+          <div class="log"><img src="../../assets/imgs/opendatadurban.png" style="width: 70%;height: 100%;"></div>
+          <div class="email1">
+            <div class="em1">{{hotel.Contact}}</div>
+            <div class="em1">{{hotel.Location}}</div>
+            
+          </div>
+        </div>
+        <div class="great"><h2>{{hotel.hotelName}}</h2></div>
+  </div>
+  <div class="bottom">
+    <div class="type">
+     Double Rooms
+    </div>
+    <div class="backpackers" >
+      
+             <div class="offer1" *ngFor="let luxury of doubleRoom;" (click)="roomDetails(luxury.key)">
+               <img src="{{luxury.image}}" style="width: 100%;height: 50%">
+        <div class="discrip" style="color: seashell;">R{{luxury.Price}}<br>{{luxury.bathrooms}} bathroom </div></div>
+   
+    
+    </div>
+    <div class="type">
+        Double
+      </div>
+      <div class="backpackers">
+          <div class="offer1"><img src="" style="width: 90%;height: 70%">
+          <div class="discrip" style="color:seashell;">Hotel Name<br>Description </div></div>
+      </div>
+      <div class="type">
+          Single
+        </div>
+        <div class="backpackers">
+            <div class="offer1"><img src="../../assets/imgs/bed.jpg" style="width: 90%;height: 70%">
+            <div class="discrip" style="color: seashell;">Hotel Name<br>Description </div></div>
+        </div>
+  </div>
+</div>
+ 
+</ion-content>

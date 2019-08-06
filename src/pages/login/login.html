@@ -1,0 +1,43 @@
+<ion-header>
+</ion-header>
+<ion-content >
+<div class="container">
+ <div class="head">
+   <img src="../../assets/imgs/opendatadurban.png" style="width: 100%;margin: auto;">
+ </div>
+ <div class="alrt"><p class="p_alrt">signup with:</p></div>
+<div class="buttns">
+ <button ion-button class="facebtn" (click)="facelogin()"> <ion-icon name="logo-facebook"(click)="loginWithGoogle()"></ion-icon>facebook</button> <button ion-button class="goobtn"> <ion-icon name="logo-googleplus"></ion-icon>Google+</button>
+</div>
+<form class="labl" [formGroup]="loginForm">
+ 
+ <ion-item style="background-color: transparent;color: seashell">
+   <ion-label floating style="color: seashell">Username</ion-label>
+   <ion-input type="text" formControlName="email" [(ngModel)]="users.email"></ion-input>
+ </ion-item>
+ <div class="error" *ngFor="let validate of validation_messages.email">
+  <div class="messages" *ngIf="loginForm.get('email').hasError(validate.type) && (loginForm.get('email').dirty || loginForm.get('email').touched)">
+    {{validate.message}}
+  </div>
+</div>
+ <ion-item style="background-color: transparent;color: seashell">
+   <ion-label floating  style="color: seashell" >Password</ion-label>
+   <ion-input type="password" formControlName="password" [(ngModel)]="users.password"></ion-input>
+ </ion-item>
+ <div class="error" *ngFor="let validate of validation_messages.password">
+  <div class="messages" *ngIf="loginForm.get('password').hasError(validate.type) && (loginForm.get('password').dirty || loginForm.get('password').touched)">
+    {{validate.message}}
+  </div>
+</div>
+<div class="lnk">
+<a>Forgot Password?</a>
+</div>
+
+<div class="now">
+ <div class="mov"><button ion-button class="logbtn" (click)="login()">Login Now</button></div></div>
+<div class="now">
+   <div class="mov"><button ion-button clear class="regbtn" (click)="openRegisterPage()">Create an Account?</button></div></div>
+ 
+</form>
+</div>
+</ion-content>

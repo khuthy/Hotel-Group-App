@@ -1,0 +1,87 @@
+page-login {
+    .content{
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.911), rgba(0, 0, 0, 0.808)), url('../assets/imgs/durban.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center center;
+    }
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .head{
+        border: solid transparent;
+        width: 60%;
+        height: 15%;
+        margin: auto;
+        background-size:cover;
+        background-repeat: repeat;
+        padding-top: 10px;
+    }
+    .buttns{
+        padding-top: 10px;
+        width: 80%;
+        height: 15%;
+        margin: auto;
+        display: flex;
+    }
+    .facebtn{
+        width: 50%;
+        background-color: rgba(48, 83, 156, 0.959);
+        border-radius: 35px 0% 0% 35px;
+        size: 1px;
+    }
+    .goobtn{
+        width: 50%;
+        background-color: rgba(219, 52, 46, 0.959);
+        border-radius: 0% 35px 35px 0%;
+        size: 1px;
+    }
+    .alrt{
+        margin: auto;
+        width: 35%;
+        height: 9%;
+        color: seashell;
+        padding-top: 7px;
+    }
+    .p_alrt{
+        font-size: 5mm
+    }
+    .labl{
+        width:80%;
+        margin: auto;
+        color:seashell;
+    }
+    a{
+        color: seashell;
+        font-size: 4mm
+    }
+    .lnk{
+        padding-top: 17px;
+        width: 90%;
+        margin: auto
+    }
+    .logbtn{
+        width: 100%;
+         border-radius: 15px;
+         background-color: seashell;
+         color: brown;
+    }
+    .now{
+        width: 80%;
+        height: 16%;
+        margin: auto;
+        padding-top: 20px
+    }
+    .regbtn{
+        width: 100%;
+         border-radius: 15px;
+         margin: auto;
+        // background-color: rgba(14, 13, 13, 0.74);
+         color: rgb(255, 255, 255);
+    }
+}

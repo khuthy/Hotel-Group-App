@@ -1,0 +1,48 @@
+
+
+<ion-content padding>
+<div class="container">
+  <div class="top"> 
+      <img  [src]="users.image" class="profile-image">
+      <button ion-fab mini color="dark" (click)="takePhoto(1)" class="btn-fab"><ion-icon name="md-camera"></ion-icon></button>
+    </div> 
+    
+  
+  
+   <form  class="bottom" action="" [formGroup]="profileFormValidation">
+       <ion-item style="background-color: transparent;color: seashell">
+          <ion-label floating style="color: seashell" >Username</ion-label>
+          <ion-input type="text" formControlName="username" [(ngModel)]="users.username"></ion-input>
+        </ion-item>
+        <div class="error" *ngFor="let validate of validation_messages.username">
+          <div class="messages" *ngIf="profileFormValidation.get('username').hasError(validate.type) && (profileFormValidation.get('username').dirty || profileFormValidation.get('username').touched)">
+            {{validate.message}}
+          </div>
+          </div>
+      
+        <ion-item style="background-color: transparent;color: seashell">
+          <ion-label floating  style="color: seashell" >Contact Number</ion-label>
+          <ion-input type="Number" formControlName="contact" [(ngModel)]="users.contact"></ion-input>
+        </ion-item>
+        <div class="error" *ngFor="let validate of validation_messages.contact">
+          <div class="messages" *ngIf="profileFormValidation.get('contact').hasError(validate.type) && (profileFormValidation.get('contact').dirty || profileFormValidation.get('contact').touched)">
+            {{validate.message}}
+          </div>
+          </div>
+          <ion-item style="background-color: transparent;color: seashell">
+              <ion-label floating style="color: seashell" >Bio</ion-label>
+              <ion-input type="text" formControlName="bio" [(ngModel)]="users.bio"></ion-input>
+            </ion-item>
+            <div class="error" *ngFor="let validate of validation_messages.bio">
+              <div class="messages" *ngIf="profileFormValidation.get('bio').hasError(validate.type) && (profileFormValidation.get('bio').dirty || profileFormValidation.get('bio').touched)">
+                {{validate.message}}
+              </div>
+              </div>
+            <div class="now">
+                <div class="mov"><button ion-button block class="regbtn"(click)="SaveProfile(users)">Save Profile</button></div>
+              </div>
+   </form>
+    
+ 
+</div>
+</ion-content>

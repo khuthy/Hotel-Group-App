@@ -1,0 +1,63 @@
+page-profile {
+.content{
+    
+   
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.815), rgba(0, 0, 0, 0.808)), url('../assets/imgs/durban.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center; 
+ 
+}
+.top{
+    
+    
+    //height: 40%;
+    display: flex;
+    justify-content: center;
+    padding-top: 10%;
+    position: relative;
+}
+.ava{
+    width: 20%;
+     height: 80%;
+     margin: auto;
+}
+.now{
+    width: 80%;
+    height: 16%;
+    margin: auto;
+
+}
+.regbtn{
+    width: 100%;
+     border-radius: 15px;
+     margin: auto;
+     background-color: seashell;
+     color: brown;
+
+}
+.bottom{
+    display: flex;
+    flex-direction: column;
+    margin:  0 auto;
+    max-width: 80rem;
+  
+}
+.profile-image {
+    height: 30vh;
+    width:  30vh;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 10px solid rgba(147, 97, 240, 0.733);
+    
+}
+.btn-fab {
+    position: absolute;
+    bottom: 0;
+    right: 25%;
+    
+}
+
+}
+

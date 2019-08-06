@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Booking</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content >
+  <div class="container">
+      <div class="middle" *ngFor="let room of roomDetails;">
+        <img src="{{room.image}}" alt="">
+        </div>
+    <div class="top">
+        <ion-item style="background-color: transparent;color: seashell;width: 50%;">
+            <ion-label floating style="color: seashell">Check-In  </ion-label>
+            <ion-input type="date" [(ngModel)]="booking.checkin"></ion-input>
+          </ion-item>
+          
+
+          <ion-item style="background-color: transparent;color: seashell;width: 50%;">
+              <ion-label floating style="color: seashell">Check-Out </ion-label>
+              <ion-input type="date" [(ngModel)]="booking.checkout"></ion-input>
+            </ion-item>
+    </div>
+    
+    <div class="bottom">
+      <div class="typ">
+        <div class="typ1"><ion-icon ios="ios-people" md="md-people" style="padding: 10px"></ion-icon>Adult</div>
+        <div class="typ2"><button ion-button style="background-color: transparent" (click)="AdultMinus()"><ion-icon ios="ios-remove"  md="md-remove"></ion-icon></button></div>
+        <div class="typ3" style="padding: 12px">{{booking.adultCount}}</div>
+        <div class="typ4"> <button ion-button style="background-color: transparent"><ion-icon ios="ios-add" (click)="AdultPlus()" md="md-add"></ion-icon></button></div>
+      </div>
+      <div class="typ">
+          <div class="typ1"><ion-icon ios="ios-contacts" md="md-contacts" style="padding: 10px"></ion-icon>Children </div>
+          <div class="typ2"><button ion-button style="background-color: transparent" (click)="childMinus()"><ion-icon ios="ios-remove" md="md-remove"></ion-icon></button></div>
+          <div class="typ3" style="padding: 12px">{{booking.childCount}}</div>
+          <div class="typ4"> <button ion-button style="background-color: transparent"(click)="childPlus()" ><ion-icon ios="ios-add" md="md-add"></ion-icon></button></div>
+        </div>
+        <div class="last">
+          <div class="conf">
+            <div class="price">
+              <p>{{booking.total}}</p>
+            </div>
+            <div class="btn">
+                <button ion-button class="btnproceed" (click)="createBooking()">Proceed</button>
+            </div>
+            <div class="btn">
+                <button ion-button class="btncancel" (click)="navCtrl.pop()">Cancel</button>
+            </div>
+          </div>
+        </div>
+    </div>
+    </div>
+</ion-content>
