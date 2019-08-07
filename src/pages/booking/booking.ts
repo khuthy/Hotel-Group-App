@@ -121,7 +121,7 @@ export class BookingPage {
       alert.present();
      }else {
       let sum = parseFloat(dayCheckout)-parseFloat(dayCheckin);
-      this.booking.total = this.booking.total + sum + this.booking.childCount + this.booking.adultCount;
+      this.booking.total = (this.booking.total * (sum + this.booking.childCount + this.booking.adultCount));
       console.log(this.booking.total);
 
 

@@ -112,16 +112,6 @@ export class LoginPage {
     this.navCtrl.push(RegisterPage)
   }
 
-  state(){
-    firebase.auth().onAuthStateChanged((user) => {
-      if(user) {
-        this.navCtrl.setRoot(HomePage);
-      }else {
-        this.navCtrl.setRoot(LoginPage)
-      }
-    })
-  }
-
   facelogin() {
     firebase.auth().signInWithPopup(new this.facelogin()).then(resp => {
 

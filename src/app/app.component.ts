@@ -30,7 +30,7 @@ export class MyApp {
     this.pages = [
       { title: 'History', component: HomePage },
       { title: 'Settings', component: ProfilePage },
-      { title: 'Sign Out', component: SignoutPage },
+      { title: 'Sign Out', component: SignoutPage }
     ];
 
   }
@@ -38,16 +38,17 @@ export class MyApp {
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
         this.userEmail = user.email;
-        const ref = firebase.database().ref().child('profile');
-        ref.orderByChild('UserUid').equalTo(user.uid).on('value', (snap) => {
+        const ref = firebase.database().ref('profile/'+user.uid);
+        ref.on('value', (snap) => {
            this.profile  = fetchData(snap);
             if(this.profile.length > 0) {
+              
               this.rootPage = HomePage;
 
             }else {
               this.rootPage = ProfilePage;
             }
-        })
+        });
 
       }else {
         this.rootPage = LoginPage

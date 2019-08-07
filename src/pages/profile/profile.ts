@@ -6,9 +6,8 @@ import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms'
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { LoginPage } from '../login/login';
 import { HomePage } from '../home/home';
-import { dateDataSortValue } from 'ionic-angular/umd/util/datetime-util';
 import { fetchData } from '../../app/firebase';
-import { PaymentPage } from '../payment/payment';
+
 /**
  * Generated class for the ProfilePage page.
  *
@@ -25,7 +24,7 @@ export class ProfilePage {
   profileFormValidation: FormGroup;
   users = {} as Users;
   profileAlreadyExists: any;
-  database =  firebase.database().ref();
+  database: any;
   count: number;
   validation_messages = {
     'username': [
@@ -56,7 +55,6 @@ export class ProfilePage {
       this.users.image = '../../assets/imgs/team-avatar.jpg';
 
       this.profileFormValidation = this.forms.group({
-      image: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
       contact: new FormControl('', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(12)])),
       bio: new FormControl('', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(50)]))
@@ -66,16 +64,20 @@ export class ProfilePage {
    var user = firebase.auth().currentUser;
     if(user) {
       this.users.uid = user.uid;
-      this.database.child('profile').child(user.uid).on('value', (snap) => {
-        
+      this.database = firebase.database().ref('profile/'+ this.users.uid);
+      this.database.on('value', (snap) => {
+        this.count = fetchData(snap).length;
         if(snap.exists()) {
-          snap.forEach(element => {
-            this.users.image = element.val().Image;
-            this.users.username = element.val().Username;
-            this.users.contact = element.val().Contact;
-            this.users.bio = element.val().Bio;
-          });
+
+        this.users.image = fetchData(snap)[0].Image;
+        this.users.contact = fetchData(snap)[0].Contact;
+        this.users.username = fetchData(snap)[0].Username;
+        this.users.bio = fetchData(snap)[0].Bio;
+        }else {
+          console.log('create new profile');
+          
         }
+     
       })
     }else {
       this.navCtrl.setRoot(LoginPage);
@@ -96,6 +98,7 @@ export class ProfilePage {
     var user = firebase.auth().currentUser;
     if(user) {
       this.users.uid = user.uid;
+      
       
     }else {
       this.navCtrl.setRoot(LoginPage)
@@ -129,8 +132,8 @@ export class ProfilePage {
   upload() {
     let loaders = this.loadingCtrl.create({
       content: 'Uploading, Please wait...',
-      duration: 3000
-    })
+      duration: 300
+    });
     let storageRef = firebase.storage().ref();
 
     const filename = Math.floor(Date.now() / 1000);
@@ -139,24 +142,29 @@ export class ProfilePage {
     loaders.present()
     imageRef.putString(this.users.image, firebase.storage.StringFormat.DATA_URL)
     .then((snapshot) => {
-      console.log('image uploaded');
-      let alert = this.alertCtrl.create({
-        title: 'Profile Created', 
-        subTitle: 'Your Profile has been Created',
-        buttons: ['Ok']
-      })
-      console.log(snapshot);
-      
-      alert.present();
+     console.log(snapshot);
+     
     })
   }
 
   SaveProfile(users: Users){
+
+    if(this.count > 0) {
+        console.log('save new profile');
+        
+    }else {
+      console.log('edit existing profile');
+      
+    }
+
     
-    if(!this.profileFormValidation.valid) {
+    
+    if(this.profileFormValidation.valid) {
+      
+
       this.upload();
-      const Ref = this.database.child('profile');
-      let newRecord =  Ref.push(this.users.uid);
+    
+      const ref = this.database.push();
 
       let alertSuccess = this.alertCtrl.create({
         title: 'Profile Created',
@@ -164,16 +172,17 @@ export class ProfilePage {
         buttons: ['Ok']
       })
 
-      newRecord.set({
+      ref.set({
         Image: this.users.image,
         Contact: this.users.contact,
         Username: this.users.username,
         Bio: this.users.bio,
         timestamp: Date(),
-        UserUid: this.users.uid
+       
       
       })
       alertSuccess.present();
+      this.navCtrl.setRoot(HomePage);
 
     }else {
       let alert = this.alertCtrl.create({
