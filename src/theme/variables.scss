@@ -35,11 +35,13 @@ $app-direction: ltr;
 
 $colors: (
   primary:    #488aff,
-  secondary:  #32db64,
+  secondary:  #0000009f,
   danger:     #f53d3d,
   light:      #f4f4f4,
   dark:       #222
 );
+
+$list-md-background-color: transparent;
 
 
 // App iOS Variables

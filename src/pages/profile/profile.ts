@@ -25,7 +25,11 @@ export class ProfilePage {
   users = {} as Users;
   profileAlreadyExists: any;
   database: any;
-  count: number;
+  key : any;
+  
+  buttonNameUpdate: boolean = false;
+  buttonNameSave: boolean = false;
+
   validation_messages = {
     'username': [
       {type: 'required', message: 'Username is required.'}
@@ -56,7 +60,7 @@ export class ProfilePage {
 
       this.profileFormValidation = this.forms.group({
       username: new FormControl('', Validators.required),
-      contact: new FormControl('', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(12)])),
+      contact: new FormControl('', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10)])),
       bio: new FormControl('', Validators.compose([Validators.required, Validators.minLength(7), Validators.maxLength(50)]))
     
     })
@@ -64,17 +68,21 @@ export class ProfilePage {
    var user = firebase.auth().currentUser;
     if(user) {
       this.users.uid = user.uid;
-      this.database = firebase.database().ref('profile/'+ this.users.uid);
-      this.database.on('value', (snap) => {
-        this.count = fetchData(snap).length;
+      this.database = firebase.database().ref();
+      this.database.child('profile').orderByChild('userUid').equalTo(user.uid).on('value', (snap) => {
+       
         if(snap.exists()) {
-
+          this.key = fetchData(snap)[0].key;
+          console.log(this.key);
+          
         this.users.image = fetchData(snap)[0].Image;
         this.users.contact = fetchData(snap)[0].Contact;
         this.users.username = fetchData(snap)[0].Username;
         this.users.bio = fetchData(snap)[0].Bio;
+        this.buttonNameUpdate = true;
         }else {
           console.log('create new profile');
+          this.buttonNameSave = true;
           
         }
      
@@ -95,14 +103,6 @@ export class ProfilePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProfilePage');
-    var user = firebase.auth().currentUser;
-    if(user) {
-      this.users.uid = user.uid;
-      
-      
-    }else {
-      this.navCtrl.setRoot(LoginPage)
-    }
   }
   takePhoto(sourcetype: number) {
     const options: CameraOptions = {
@@ -130,16 +130,13 @@ export class ProfilePage {
     });
   }
   upload() {
-    let loaders = this.loadingCtrl.create({
-      content: 'Uploading, Please wait...',
-      duration: 300
-    });
+    
     let storageRef = firebase.storage().ref();
 
     const filename = Math.floor(Date.now() / 1000);
 
     const imageRef = storageRef.child(`profile/${filename}.jpg`);
-    loaders.present()
+    
     imageRef.putString(this.users.image, firebase.storage.StringFormat.DATA_URL)
     .then((snapshot) => {
      console.log(snapshot);
@@ -148,40 +145,30 @@ export class ProfilePage {
   }
 
   SaveProfile(users: Users){
-
-    if(this.count > 0) {
-        console.log('save new profile');
-        
-    }else {
-      console.log('edit existing profile');
-      
-    }
-
+    let loaders = this.loadingCtrl.create({
+      content: 'Uploading, Please wait...',
+      duration: 300
+    });
     
     
-    if(this.profileFormValidation.valid) {
+   if(this.profileFormValidation.valid) {
       
-
+    loaders.present();
       this.upload();
-    
-      const ref = this.database.push();
+      
+      const ref = this.database.child('profile ').push();
 
-      let alertSuccess = this.alertCtrl.create({
-        title: 'Profile Created',
-        subTitle: 'Successfully created a profile.',
-        buttons: ['Ok']
-      })
+  
 
       ref.set({
-        Image: this.users.image,
-        Contact: this.users.contact,
-        Username: this.users.username,
-        Bio: this.users.bio,
+        Image: users.image,
+        Contact: users.contact,
+        Username: users.username,
+        Bio: users.bio,
+        userUid: users.uid,
         timestamp: Date(),
-       
-      
-      })
-      alertSuccess.present();
+       })
+
       this.navCtrl.setRoot(HomePage);
 
     }else {
@@ -191,8 +178,41 @@ export class ProfilePage {
         buttons: ['Try again']
       })
       alert.present();
-    }
+    } 
    
+  }
+  
+  updateProfile(users: Users) {
+    let loaders = this.loadingCtrl.create({
+      content: 'Uploading, Please wait...',
+      duration: 300
+    });
+    let alertSuccess = this.alertCtrl.create({
+      title: 'Profile Updated',
+      subTitle: 'You have successfully updated your profile',
+      buttons: ['Ok']
+    })
+    if(this.profileFormValidation.valid) {
+      loaders.present();
+      const update = firebase.database().ref('profile/'+ this.key).update({
+      Image: users.image,
+      Contact: users.contact,
+      Username: users.username,
+      Bio: users.bio,
+      userUid: users.uid,
+      timestamp: Date()
+    });
+    this.navCtrl.pop();
+    alertSuccess.present();
+    }else {
+      let alert = this.alertCtrl.create({
+        title: 'error detected.',
+        subTitle: 'Your Inputs can\'t be empty',
+        buttons: ['Try again']
+      })
+      alert.present();
+    }
+    
   }
 
 

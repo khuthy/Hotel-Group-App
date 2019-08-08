@@ -1,0 +1,29 @@
+page-confirmed-message {
+    .container{
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+     }
+     .main{
+        font-size: 60px;
+        color: rgb(163, 112, 16);
+     }
+     .icon{
+        font-size: 200px;
+        flex-grow: 3;
+     }
+     .msg{
+        font-size: 35px;
+        color: rgb(163, 112, 16);
+        text-align: center;
+        flex-grow: 2;
+     }
+     .btn{
+        button{
+            border-radius: 20px;
+            width: 60%;
+            left: 75px;
+        }
+     }
+}

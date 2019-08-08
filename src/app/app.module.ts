@@ -16,6 +16,7 @@ import { SignoutPage } from '../pages/signout/signout';
 import { PaymentPage } from '../pages/payment/payment';
 import { ViewroomsPage } from '../pages/viewrooms/viewrooms';
 import { BookingPage } from '../pages/booking/booking';
+import { ConfirmedMessagePage } from '../pages/confirmed-message/confirmed-message';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { BookingPage } from '../pages/booking/booking';
     SignoutPage,
     PaymentPage,
     ViewroomsPage,
-    BookingPage
+    BookingPage,
+    ConfirmedMessagePage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { BookingPage } from '../pages/booking/booking';
     SignoutPage,
     PaymentPage,
     ViewroomsPage,
-    BookingPage
+    BookingPage,
+    ConfirmedMessagePage
   ],
   providers: [
     StatusBar,

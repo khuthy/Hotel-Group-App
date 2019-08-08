@@ -10,20 +10,32 @@
 <ion-content >
   <div class="container">
       <div class="middle" *ngFor="let room of roomDetails;">
-        <img src="{{room.image}}" alt="">
+        <img src="{{room.image}}" alt="" class="room-image">
         </div>
-    <div class="top">
-        <ion-item style="background-color: transparent;color: seashell;width: 50%;">
+    <form class="top" [formGroup]="bookingForm">
+        <ion-item style="background-color: transparent;color: seashell;">
             <ion-label floating style="color: seashell">Check-In  </ion-label>
-            <ion-input type="date" [(ngModel)]="booking.checkin"></ion-input>
-          </ion-item>
+            <ion-input type="date" formControlName="checkin" [(ngModel)]="booking.checkin"></ion-input> 
           
+          </ion-item>
+          <div class="error" *ngFor="let validate of validation_messages.checkin">
+            <div class="messages" *ngIf="bookingForm.get('checkin').hasError(validate.type) && (bookingForm.get('checkin').dirty || bookingForm.get('checkin').touched)">
+              {{validate.message}}
+            </div>
+          </div>
 
-          <ion-item style="background-color: transparent;color: seashell;width: 50%;">
+          <ion-item style="background-color: transparent;color: seashell;">
               <ion-label floating style="color: seashell">Check-Out </ion-label>
-              <ion-input type="date" [(ngModel)]="booking.checkout"></ion-input>
+              <ion-input type="date" formControlName="checkout" [(ngModel)]="booking.checkout"></ion-input>
+             
             </ion-item>
-    </div>
+            <div class="error" *ngFor="let validate of validation_messages.checkout">
+              <div class="messages" *ngIf="bookingForm.get('checkout').hasError(validate.type) && (bookingForm.get('checkout').dirty || bookingForm.get('checkout').touched)">
+                {{validate.message}}
+              </div>
+            </div>
+            
+    </form>
     
     <div class="bottom">
       <div class="typ">

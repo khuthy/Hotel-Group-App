@@ -13,8 +13,8 @@
     </div>
     
     
-    <ion-list  >
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+    <ion-list class="item" no-lines>
+      <button menuClose color="secondary" block ion-item *ngFor="let p of pages" (click)="openPage(p)">
         {{p.title}}
       </button>
     </ion-list>

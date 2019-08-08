@@ -1,59 +1,70 @@
-<ion-header>
-    <ion-navbar color="dark">
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-      <ion-title>Home</ion-title>
-    </ion-navbar>
-  </ion-header>
 
-<ion-content>
+
+<ion-content padding>
   <div class="container">
     <div class="top">
     <div class="headin">
-      Choose a payment method
+     <h3 style="color: rgb(146, 146, 146); font-size: 23px;">Make your final steps with payment.</h3> 
     </div>
-     <div class="p">Debit/ Credit card</div>
+     
     <div class="card">
-     <div class="radi"><input name="cardType" [(ngModel)]="card.cardType" type="radio"></div>
-      <div class="cardpic1" ></div>
+      <div class="cardpic1"></div>
       <div class="cardpic2"></div>
       <div class="cardpic3"></div>
       <div class="cardpic4"></div>
       <div class="cardpic5"></div>
     </div>
-    <div class="p">Paypal</div>
-    <div class="card1"> 
-      <div class="radi"><input name="cardType" [(ngModel)]="card.cardType" type="radio"></div>
-      <div class="card2"></div>
-    </div>
+    
   </div>
-  <div class="bottom">
-    <div class="headin1">
-      Card Details
-      </div>
+  <form class="bottom" [formGroup]="paymentForm">
+   <h4 style="text-align: center; color: #ffffff; margin-top: 5%;">Card Details</h4>
       <div class="detals">
-        <div class="txt1">
-          <input type="text" [(ngModel)]="card.name" placeholder=" Name On Card" class="btn">
-        </div>
-        <div class="txt2">
-          <input type="text" [(ngModel)]="card.number" placeholder=" xxxx - xxxx - xxxx - xxxx " class="btn">
-        </div>
+      
+          <ion-item>
+            <ion-label style="color: seashell" floating>Card Holder Name</ion-label>
+            <ion-input type="text" formControlName="name" name="name" [(ngModel)]="card.name" class="btn"></ion-input>
+          </ion-item>
+          <div class="error" *ngFor="let validate of validation_messages.name">
+              <div class="messages" *ngIf="paymentForm.get('name').hasError(validate.type) && (paymentForm.get('name').dirty || paymentForm.get('name').touched)">
+                {{validate.message}}
+              </div>
+            </div>
+          <ion-item>
+              <ion-label style="color: seashell" floating>Card Number</ion-label>
+              <ion-input  type="number" formControlName="number" name="number" [(ngModel)]="card.number" class="btn"></ion-input>
+            </ion-item>
+            <div class="error" *ngFor="let validate of validation_messages.number">
+                <div class="messages" *ngIf="paymentForm.get('number').hasError(validate.type) && (paymentForm.get('number').dirty || paymentForm.get('number').touched)">
+                  {{validate.message}}
+                </div>
+              </div>
         
       </div>
       <div class="detals2">
         <div class="expDate">
-          Expiry date
-          <input type="text" class="btn1" [(ngModel)]="card.expiryDate" placeholder="DD/MM">
+            <ion-item>
+                <ion-label>expiry Date</ion-label>
+                <ion-datetime formControlName="expiryDate" displayFormat="MM/DD" class="btn1" pickerFormat="DD MM" name="expiryDate" [(ngModel)]="card.expiryDate"></ion-datetime>
+              </ion-item>
+              <div class="error" *ngFor="let validate of validation_messages.expiryDate">
+                  <div class="messages" *ngIf="paymentForm.get('expiryDate').hasError(validate.type) && (paymentForm.get('expiryDate').dirty || paymentForm.get('expiryDate').touched)">
+                    {{validate.message}}
+                  </div>
+                </div>
         </div>
         <div class="secuCode">
-            Security Code
-            <input type="text"placeholder="xxxx" [(ngModel)]="card.securityCode" class="btn1">
+           
+            <ion-item>
+                <ion-label style="color: seashell" floating>Security Code</ion-label>
+                <ion-input type="datetime" name="securityCode" [(ngModel)]="card.securityCode" class="btn1"></ion-input>
+              </ion-item>
         </div>
       </div> 
       <div class="btnh">
-           <button ion-button class="btnpay" (click)="Payment()">Pay</button>
+       
+           <button ion-button class="btnpay" *ngIf="buttonNameSave" full round (click)="Payment()">Pay (R {{total}}.00)</button>
+           <button ion-button class="btnpay" *ngIf="buttonNameUpdate" full round (click)="updatePayment()">Pay (R {{total}}.00)</button>
       </div>
-  </div>
+  </form>
   </div>
 </ion-content>

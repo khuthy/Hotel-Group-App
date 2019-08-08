@@ -21,7 +21,7 @@
     margin-top: 1em;
 }
 .container1 {
-    background: linear-gradient(45deg, rgba(0, 0, 0, 0.815), rgba(0, 0, 0, 0.808)), url('../assets/imgs/durban.jpg');
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.911), rgba(0, 0, 0, 0.924)), url('../assets/imgs/durban.jpg');
     background-size: cover;
     background-position: center center;
 }
@@ -31,6 +31,7 @@
     align-items: center;
     flex-direction: column;
     text-align: center;
+    border-bottom: 1px solid rgba(221, 221, 221, 0.157);
     .thumb {
         height: 25vh;
         width: 25vh;
@@ -39,6 +40,10 @@
         object-fit: cover
     }
     .item {
-        background-color: rgba(0, 0, 0, 0.808);
+        background-color: transparent;
+        color: #fff;
+    }
+    .text-btn {
+        text-align: center;
     }
 }

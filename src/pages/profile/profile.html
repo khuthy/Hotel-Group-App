@@ -39,8 +39,9 @@
               </div>
               </div>
             <div class="now">
-                <div class="mov"><button ion-button block class="regbtn"(click)="SaveProfile(users)">Save Profile</button>
-                  
+                <div class="mov"><button ion-button block *ngIf="buttonNameSave" class="regbtn" (click)="SaveProfile(users)">Save Profile</button>
+                  <button ion-button block class="regbtn" *ngIf="buttonNameUpdate" (click)="updateProfile(users)">Update Profile</button>
+                  <button full ion-fab color="secondary" *ngIf="buttonNameUpdate" (click)="navCtrl.pop()">Cancel</button>
                 </div>
               </div>
    </form>

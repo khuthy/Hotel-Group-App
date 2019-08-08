@@ -1,24 +1,27 @@
 page-payment {
-   /*  .container{
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        height: 100%;
-        width: 100%;
+     .content{
+        
        
-        background: linear-gradient(rgba(189, 179, 211, 0.903),rgba(190, 174, 235, 0.981)),url(../../assets/imgs/durban.jpg);
+        background: linear-gradient(rgba(0, 0, 0, 0.903),rgba(0, 0, 0, 0.981)),url(../../assets/imgs/durban.jpg);
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center center; 
      
     }
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+       
+    }
   
     .top{
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
+        justify-content: center;
         width: 100%;
-        height: 40%;
+      
+        
         
     }
     .headin{
@@ -29,18 +32,20 @@ page-payment {
         color: rgb(109, 21, 136)
     }
     .bottom{
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        height: 65%;
+      
+      
+       display: flex;
+       flex-direction: column;
+       justify-content: space-evenly;
     
     }
     .card{
-        width: 100%;
-        height: 30%;
-       
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-between;
+        align-items: center;
+        .card > div {
+            flex-basis: 25%;
+        }
         
     }
     .radi{
@@ -51,7 +56,7 @@ page-payment {
         
     }
     .cardpic1{
-        width: 15%;
+        width: 25%;
         
         height: 40px;
         background-image: url(../../assets/imgs/card.png);
@@ -60,7 +65,7 @@ page-payment {
         background-size: cover;
     }
     .cardpic2{
-        width: 15%;
+        width: 25%;
        
         height: 40px;
         background-position: center;
@@ -69,7 +74,7 @@ page-payment {
         background-image: url(../../assets/imgs/card2.png)
     }
     .cardpic3{
-        width: 15%;
+        width: 25%;
        
         height: 40px;
         background-position: center;
@@ -78,7 +83,7 @@ page-payment {
         background-image: url(../../assets/imgs/cardca.png)
     }
     .cardpic4{
-        width: 15%;
+        width: 25%;
       
         height: 40px;
         background-position: center;
@@ -87,26 +92,26 @@ page-payment {
         background-image: url(../../assets/imgs/cardama.png)
     }
     .cardpic5{
-        width: 15%;
+        width: 25%;
        
         height: 40px;
+
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url()
+        background-image: url(../../assets/imgs/card3.png)
     }
     .headin1{
         font-size: 5mm;
      
         height: 15%;
-        padding: 10px;
+        
         color: rgb(109, 21, 136)  
     }
     .detals{
-        width: 80;
-        height: 40%;
-        justify-content: space-evenly;
-        padding: 10px;
+       
+        
+        
     }
     .btn{
         background-color: transparent;
@@ -128,11 +133,11 @@ page-payment {
         
     }
     .expDate{
-        width: 45%;
+        width: 50%;
         
     }
     .secuCode{
-        width: 45%;
+        width: 50%;
         
     }
     .btn1{
@@ -144,14 +149,14 @@ page-payment {
     }
     .btnh{
         width: 100%;
-        display: flex;
-        justify-content: space-evenly
+       
     }
     .btnpay{
-        width: 90%;
+       
         background-color: seashell;
         color: brown;
-        border-radius: 15px
+        margin-top: 50px;
+        
     }
     .p{
         font-style: unset;
@@ -171,76 +176,8 @@ page-payment {
         width: 100%;
         height: 30%;
         display: flex;
-    } */
+    } 
 
-    .content {
-        background: linear-gradient(rgba(189, 179, 211, 0.903),rgba(190, 174, 235, 0.981)),url(../../assets/imgs/durban.jpg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center center; 
-    }
-    .header {
-        color: #fff;
-        text-align: center;
-    }
-    .top{
-
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        width: 100%;
-        height: 40%;
-        
-    }
-    .cardpic1{
-        width: 15%;
-        
-        height: 40px;
-        background-image: url(../../assets/imgs/card.png);
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-    }
-    .cardpic2{
-        width: 15%;
-       
-        height: 40px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url(../../assets/imgs/card2.png)
-    }
-    .cardpic3{
-        width: 15%;
-       
-        height: 40px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url(../../assets/imgs/cardca.png)
-    }
-    .cardpic4{
-        width: 15%;
-      
-        height: 40px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url(../../assets/imgs/cardama.png)
-    }
-    .cardpic5{
-        width: 15%;
-       
-        height: 40px;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-image: url()
-    }
-    .p{
-        font-style: unset;
-        padding: 10px;
-        width: 100%
-    }
+   
 
 }

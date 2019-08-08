@@ -28,8 +28,8 @@ export class MyApp {
     this.state();
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'History', component: HomePage },
-      { title: 'Settings', component: ProfilePage },
+      { title: 'View my Bookings', component: HomePage },
+      { title: 'Edit Profile', component: ProfilePage },
       { title: 'Sign Out', component: SignoutPage }
     ];
 
@@ -38,11 +38,10 @@ export class MyApp {
     firebase.auth().onAuthStateChanged((user) => {
       if(user) {
         this.userEmail = user.email;
-        const ref = firebase.database().ref('profile/'+user.uid);
-        ref.on('value', (snap) => {
+        const ref = firebase.database().ref();
+        ref.child('profile').orderByChild('userUid').equalTo(user.uid).on('value', (snap) => {
            this.profile  = fetchData(snap);
             if(this.profile.length > 0) {
-              
               this.rootPage = HomePage;
 
             }else {
@@ -68,6 +67,6 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.push(page.component);
   }
 }

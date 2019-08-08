@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ToastCmp, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ToastController, LoadingController } from 'ionic-angular';
 import * as firebase from 'firebase';
 import { fetchData } from '../../app/firebase';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { LoginPage } from '../login/login';
+import { PaymentPage } from '../payment/payment';
 /**
  * Generated class for the BookingPage page.
  *
@@ -21,28 +24,56 @@ export class BookingPage {
  public notNegetiveAllowed: string = '';
  key: any;
  roomDetails: any;
+ bookingForm: FormGroup;
 
  booking = {
    checkin: '',
    checkout: '',
-   adultCount: 0,
+   adultCount: 1,
    childCount: 0,
    total: 0,
+   userUid: ''
  }
  database = firebase.database().ref();
+ MAX: number;
+
+ validation_messages = {
+  'checkin': [
+    {type: 'required', message: 'Check In date is required.'}
+  ],
+  'checkout': [
+   {type: 'required', message: 'Check Out date is required.'}
+  
+ ]
+
+}
  
   constructor(
     public navCtrl: NavController,
      public navParams: NavParams, 
      public alertCtrl: AlertController, 
-     private toastCtrl: ToastController
+     private toastCtrl: ToastController,
+     public forms: FormBuilder,
+     private loadingCtrl: LoadingController
      ) {
-    this.key = this.navParams.data;
+
+      this.bookingForm = this.forms.group({
+        checkout: new FormControl('', Validators.compose([Validators.required])),
+        checkin: new FormControl('', Validators.compose([Validators.required]))
+      
+      })
+    var user = firebase.auth().currentUser;
+
+    if(user) {
+      this.key = this.navParams.data;
+      this.booking.userUid = user.uid;
+
      this.database.child('rooms').orderByKey().equalTo(this.key).on('value', (snap) => {
       if(snap.exists()) {
         
         this.roomDetails = fetchData(snap);
         this.booking.total = this.roomDetails[0].Price;
+        this.MAX = this.roomDetails[0].guest;
   
       }else{
         this.alertCtrl.create({
@@ -51,7 +82,12 @@ export class BookingPage {
         }).present();
       }
         
-    })
+    });
+    }else {
+      this.navCtrl.setRoot(LoginPage)
+    }
+
+    
 
   }
 
@@ -62,6 +98,15 @@ export class BookingPage {
   AdultPlus() {
     
     this.booking.adultCount++;
+    if((this.booking.childCount + this.booking.adultCount) > this.MAX) {
+      this.booking.adultCount--;
+      this.toastCtrl.create({
+        position: 'top',
+        message: 'Only '+this.MAX+' Guests are allowed.',
+        duration: 3000      
+      }).present()
+      
+    }
   }
 
   AdultMinus() {
@@ -78,6 +123,16 @@ export class BookingPage {
 
   childPlus() {
     this.booking.childCount++;
+    if((this.booking.childCount + this.booking.adultCount) > this.MAX) {
+      this.booking.childCount--;
+      this.toastCtrl.create({
+        position: 'top',
+        message: 'Only '+this.MAX+' Guests are allowed.',
+        duration: 3000      
+      }).present()
+      
+    }
+    
   }
   childMinus() {
     this.booking.childCount--;
@@ -95,12 +150,12 @@ export class BookingPage {
   createBooking() {
    
 
-    let alert = this.alertCtrl.create({
-      title: 'Successfully Booked',
-      subTitle: 'You have Successfully Booked a Room. Came back next time for more.',
-      buttons: ['Ok']
+    let loading = this.loadingCtrl.create({
+      content: '',
+      duration: 300
     })
-    let monthCheckIn = this.booking.checkin.charAt(5)+this.booking.checkin.charAt(6);
+    if(this.bookingForm.valid){
+      let monthCheckIn = this.booking.checkin.charAt(5)+this.booking.checkin.charAt(6);
      let dayCheckin = this.booking.checkin.charAt(8)+this.booking.checkin.charAt(9);
 
      let monthCheckout = this.booking.checkout.charAt(5)+this.booking.checkout.charAt(6);
@@ -120,8 +175,9 @@ export class BookingPage {
       });
       alert.present();
      }else {
+      loading.present();
       let sum = parseFloat(dayCheckout)-parseFloat(dayCheckin);
-      this.booking.total = (this.booking.total * (sum + this.booking.childCount + this.booking.adultCount));
+      this.booking.total = Math.floor(this.booking.total * (sum + this.booking.childCount + this.booking.adultCount));
       console.log(this.booking.total);
 
 
@@ -134,12 +190,24 @@ export class BookingPage {
       Adults: this.booking.adultCount,
       Children: this.booking.childCount,
       roomKey: this.key,
+      userUid: this.booking.userUid,
       Price: this.booking.total,
       timeStamp: Date()
     })
-    alert.present();
-    
+
+    this.navCtrl.push(PaymentPage, this.booking.total);
+   
     }
+    
+    
+    }else {
+      let alert = this.alertCtrl.create({
+        title: 'error detected.',
+        subTitle: 'Your Inputs can\'t be empty',
+        buttons: ['Try again']
+      })
+      alert.present();
+    } 
 
     
   }

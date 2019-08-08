@@ -9,39 +9,37 @@ page-booking {
     .container{
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly;
-        width: 100%;
+        justify-content: space-around;
         height: 100%;
        
-        background-repeat: no-repeat;
-        background-position: center center; 
+       
      
     }
-    .top{
-        display: flex;
-       
-        justify-content: space-evenly;
-         height: 15%;
-       
+    .room-image{
+        
+       object-fit: cover;
     }
     .middle{
+        flex: 1;
         display: flex;
         justify-content: space-evenly;
-        height: 35%;
-        border: solid;
+        
+        
     }
     .bottom{
+        flex: 1;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-         height: 50%;
+         
         font-size: 5mm;
     }
     .typ{
-        height: 10%;
+       
        
         display: flex;
-        justify-content: space-evenly;
+        justify-content: space-around;
+        
         color: seashell;
     }
     .typ1{

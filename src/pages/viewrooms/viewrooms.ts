@@ -32,7 +32,7 @@ export class ViewroomsPage {
         snap.forEach(element => {
           this.uidOwner = element.val().userUid;
         });
-        const owner = this.database.child('profile').orderByChild('UserUid').equalTo(this.uidOwner).on('value', (snapOwner) => {
+        const owner = this.database.child('profile').orderByChild('userUid').equalTo(this.uidOwner).on('value', (snapOwner) => {
           this.owners = fetchData(snapOwner);
         });
       }else {
