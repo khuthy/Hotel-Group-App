@@ -10,24 +10,26 @@
 <ion-content >
   <div class="container">
       <div class="middle" *ngFor="let room of roomDetails;">
-        <img src="{{room.image}}" alt="" class="room-image">
+        <img src="{{room.image}}" alt="">
+        <div class="price">
+          <p>R{{booking.total}}</p>
+        </div>
         </div>
     <form class="top" [formGroup]="bookingForm">
         <ion-item style="background-color: transparent;color: seashell;">
             <ion-label floating style="color: seashell">Check-In  </ion-label>
-            <ion-input type="date" formControlName="checkin" [(ngModel)]="booking.checkin"></ion-input> 
-          
+            <ion-datetime formControlName="checkin" displayFormat="DD MMMM YYYY" min="2019-08-12" max="2021-01-31" [(ngModel)]="booking.checkin"></ion-datetime>
           </ion-item>
           <div class="error" *ngFor="let validate of validation_messages.checkin">
             <div class="messages" *ngIf="bookingForm.get('checkin').hasError(validate.type) && (bookingForm.get('checkin').dirty || bookingForm.get('checkin').touched)">
               {{validate.message}}
             </div>
           </div>
+         
 
           <ion-item style="background-color: transparent;color: seashell;">
               <ion-label floating style="color: seashell">Check-Out </ion-label>
-              <ion-input type="date" formControlName="checkout" [(ngModel)]="booking.checkout"></ion-input>
-             
+              <ion-datetime formControlName="checkout" displayFormat="DD MMMM YYYY" min="2019-08-12" max="2021-01-31" [(ngModel)]="booking.checkout"></ion-datetime>
             </ion-item>
             <div class="error" *ngFor="let validate of validation_messages.checkout">
               <div class="messages" *ngIf="bookingForm.get('checkout').hasError(validate.type) && (bookingForm.get('checkout').dirty || bookingForm.get('checkout').touched)">
@@ -40,28 +42,26 @@
     <div class="bottom">
       <div class="typ">
         <div class="typ1"><ion-icon ios="ios-people" md="md-people" style="padding: 10px"></ion-icon>Adult</div>
-        <div class="typ2"><button ion-button style="background-color: transparent" (click)="AdultMinus()"><ion-icon ios="ios-remove"  md="md-remove"></ion-icon></button></div>
+        <div class="typ2"><button class="btn-border" ion-button style="background-color: transparent" (click)="AdultMinus()"><ion-icon ios="ios-remove"  md="md-remove"></ion-icon></button></div>
         <div class="typ3" style="padding: 12px">{{booking.adultCount}}</div>
-        <div class="typ4"> <button ion-button style="background-color: transparent"><ion-icon ios="ios-add" (click)="AdultPlus()" md="md-add"></ion-icon></button></div>
+        <div class="typ4"> <button class="btn-border" ion-button style="background-color: transparent"><ion-icon ios="ios-add" (click)="AdultPlus()" md="md-add"></ion-icon></button></div>
       </div>
       <div class="typ">
           <div class="typ1"><ion-icon ios="ios-contacts" md="md-contacts" style="padding: 10px"></ion-icon>Children </div>
-          <div class="typ2"><button ion-button style="background-color: transparent" (click)="childMinus()"><ion-icon ios="ios-remove" md="md-remove"></ion-icon></button></div>
+          <div class="typ2"><button class="btn-border" ion-button style="background-color: transparent" (click)="childMinus()"><ion-icon ios="ios-remove" md="md-remove"></ion-icon></button></div>
           <div class="typ3" style="padding: 12px">{{booking.childCount}}</div>
-          <div class="typ4"> <button ion-button style="background-color: transparent"(click)="childPlus()" ><ion-icon ios="ios-add" md="md-add"></ion-icon></button></div>
+          <div class="typ4"> <button class="btn-border" ion-button style="background-color: transparent"(click)="childPlus()" ><ion-icon ios="ios-add" md="md-add"></ion-icon></button></div>
         </div>
         <div class="last">
-          <div class="conf">
-            <div class="price">
-              <p>R{{booking.total}}</p>
+       
+           
+            <div class="btn">
+                <button ion-button (click)="createBooking()">Proceed</button>
             </div>
             <div class="btn">
-                <button ion-button class="btnproceed" (click)="createBooking()">Proceed</button>
+                <button ion-button (click)="navCtrl.pop()">Cancel</button>
             </div>
-            <div class="btn">
-                <button ion-button class="btncancel" (click)="navCtrl.pop()">Cancel</button>
-            </div>
-          </div>
+       
         </div>
     </div>
     </div>

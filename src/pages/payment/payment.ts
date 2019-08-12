@@ -24,17 +24,17 @@ export class PaymentPage {
  card = {
    name: '',
    number: null,
-   expiryDate: '',
+   expiryDate: null,
    securityCode: null,
    userUid: ''
 
 
 
  }
+
  key: any;
  database: any;
- buttonNameUpdate: boolean;
- buttonNameSave: boolean;
+
  total: number;
 
  validation_messages = {
@@ -80,24 +80,7 @@ export class PaymentPage {
       this.card.userUid = user.uid;
       this.database = firebase.database().ref();
       this.total = this.navParams.data;
-      this.database.child('payment').orderByChild('userUid').equalTo(user.uid).on('value', (snap) => {
-       
-        if(snap.exists()) {
-          this.key = fetchData(snap)[0].key;
-          console.log(this.key);
-          
-        this.card.number = fetchData(snap)[0].number;
-        this.card.securityCode = fetchData(snap)[0].securityCode;
-        this.card.expiryDate = fetchData(snap)[0].expiryDate;
-        this.card.name = fetchData(snap)[0].name;
-        this.buttonNameUpdate = true;
-        }else {
-          console.log('create new payments');
-          this.buttonNameSave = true;
-          
-        }
      
-      })
     }else {
       this.navCtrl.setRoot(LoginPage);
     }
@@ -106,7 +89,7 @@ export class PaymentPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad PaymentPage');
   }
-  payment(){
+  Payment(){
     let loaders = this.loadingCtrl.create({
       content: 'Processing Payment...',
       duration: 3000
@@ -147,40 +130,7 @@ export class PaymentPage {
    
   }
   
-  updatePayment() {
-    let loaders = this.loadingCtrl.create({
-      content: 'Processing Payment...',
-      duration: 300
-    });
-    let alertSuccess = this.alertCtrl.create({
-      title: 'Profile Updated',
-      subTitle: 'You have successfully updated your profile',
-      buttons: ['Ok']
-    })
-    if(this.paymentForm.valid) {
-      loaders.present();
-       firebase.database().ref('payment/'+ this.key).update({
-        number: this.card.number,
-        securityCode: this.card.securityCode,
-        expiryDate: this.card.expiryDate,
-        name: this.card.name,
-        userUid: this.card.userUid,
-        timestamp: Date(),
-    });
-    setTimeout(() => {
-      this.navCtrl.setRoot(ConfirmedMessagePage);
-   }, 3000)
-  
-    alertSuccess.present();
-    }else {
-      let alert = this.alertCtrl.create({
-        title: 'error detected.',
-        subTitle: 'Your Inputs can\'t be empty',
-        buttons: ['Try again']
-      })
-      alert.present();
-    }
-  }
+
 
 
 

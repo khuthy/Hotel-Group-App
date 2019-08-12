@@ -12,9 +12,9 @@
     </div>
   </div>
   <div class="roomdetails">
-     <div class="Roomtyp" style="color:seashell;">
+     <div class="Roomtyp" style="color:seashell; padding:10px">
       {{room.RoomType}} <br>
-      <h4>{{room.Location}}</h4> 
+      <h6>{{room.Location}}</h6> 
      </div>
     <div class="roomtyp2" *ngFor="let owner of owners">
       <div class="admindetails" style="color:seashell;">
@@ -22,18 +22,20 @@
         <p>hosted By {{owner.Username}}</p></div>
       <div ><img src="{{owner.Image}}" class="propic" alt=""></div>
     </div>
+    <div class="Description" style="color:seashell; padding: 10px">
+        {{room.Description}}
+       </div>
   </div>
-  <div class="icons" style="color:seashell;">
-     <div class="icons1"><span style="font-size: 23px; font-family:Verdana, Geneva, Tahoma, sans-serif;">{{room.bed}}</span> <i class="fa fa-bed" style="font-size:24px; color:seashell;"></i></div>
-     <div class="icons1"><span style="font-size: 23px; font-family:Verdana, Geneva, Tahoma, sans-serif;">{{room.bathrooms}}</span> <i class="fa fa-bathtub" style="font-size:24px; color:seashell;"></i></div>
-     <div class="icons1"><span style="font-size: 23px; font-family:Verdana, Geneva, Tahoma, sans-serif;">{{room.bedRooms}}</span> <i class='fas fa-door-open' style="font-size:24px; color:seashell;"></i></div>
-     <div class="icons1"><span style="font-size: 23px; font-family:Verdana, Geneva, Tahoma, sans-serif;">{{room.guest}}</span> <i class="fas fa-users" style="font-size:24px; color:seashell;"></i></div>
+ 
+  <div class="icons" style="color:rgb(12, 12, 12);">
+     <div class="icons1"><span style="font-size: 23px; font-family:Verdana, Geneva, Tahoma, sans-serif;">{{room.bed}}</span> <i class="fa fa-bed" style="font-size:14px; color:rgb(12, 12, 12)l;"></i><br>Bed</div>
+     <div class="icons1"><span style="font-size: 23px; font-family:Verdana, Geneva, Tahoma, sans-serif;">{{room.bathrooms}}</span> <i class="fa fa-bathtub" style="font-size:14px; color:rgb(12, 12, 12);"></i><br>Barthroom</div>
+     <div class="icons1"><span style="font-size: 23px; font-family:Verdana, Geneva, Tahoma, sans-serif;">{{room.bedRooms}}</span> <i class='fas fa-door-open' style="font-size:14px; color:rgb(12, 12, 12);"></i><br>Room</div>
+     <div class="icons1"><span style="font-size: 23px; font-family:Verdana, Geneva, Tahoma, sans-serif;">{{room.guest}}</span> <i class="fas fa-users" style="font-size:14px; color:rgb(12, 12, 12);"></i><br>Guest</div>
   </div>
   <div class="about">
       
   </div>
-  <div class="Description" style="color:seashell;">
-   {{room.Description}}
-  </div>
+  
 </div>
 </ion-content>

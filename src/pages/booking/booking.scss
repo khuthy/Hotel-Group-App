@@ -9,8 +9,9 @@ page-booking {
     .container{
         display: flex;
         flex-direction: column;
-        justify-content: space-around;
+        justify-content: space-evenly;
         height: 100%;
+        width: 100%;
        
        
      
@@ -23,7 +24,7 @@ page-booking {
         flex: 1;
         display: flex;
         justify-content: space-evenly;
-        
+        position: relative;
         
     }
     .bottom{
@@ -33,6 +34,10 @@ page-booking {
         justify-content: space-evenly;
          
         font-size: 5mm;
+    }
+    .btn-border {
+        border-radius: 50%;
+        
     }
     .typ{
        
@@ -69,27 +74,25 @@ page-booking {
    .last{
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    height: 60%;
+    justify-content: space-evenly;
+   
 
    
   
  }
    
- .conf{
-     height: 50%;
-     width: 100%;
-     
-     display: flex;
-     justify-content: space-evenly;
- }  
+ 
  .price
  {
-     width: 25%;
-    color: seashell;
-     height: 80%;
-     display: flex;
-     
+     position: absolute;
+     top: 1%;
+     right: 0%;
+     background: rgb(228, 175, 3);
+     padding: 1vw;
+     border-top-left-radius: 100% 10%;
+     border-bottom-left-radius: 100% 10%;
+     font-weight: 500;
+
  }
  .btn{
    width: 30%;

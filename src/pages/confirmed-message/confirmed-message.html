@@ -1,28 +1,19 @@
-<!--
-  Generated template for the ConfirmedMessagePage page.
 
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-<ion-header>
-  <ion-navbar>
-    <ion-title>confirmedMessage</ion-title>
-  </ion-navbar>
-</ion-header>
-
-<ion-content padding>
+<ion-content>
     <div class="container">
    <div class="main">
     <p>Success!!!</p>
    </div>
    <div class="icon">
-      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      <ion-icon name="thumbs-up"></ion-icon>
    </div>
    <div class="msg">
    <p>Your payment <br> has been confirmed</p>
+   
    </div>
+   <div class="btn" style=" padding-bottom: 10px;">
+      <button ion-button full color="light" (click)="gotohome()">ok</button>
     </div>
-    <div class="btn">
-      <button ion-button full color="dark" (click)="gotolist()">ok</button>
     </div>
+    
    </ion-content>

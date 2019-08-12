@@ -1,13 +1,17 @@
 page-confirmed-message {
+   
     .container{
         display: flex;
         flex-flow: column;
         justify-content: center;
         align-items: center;
+        height: 100%;
+        width: 100%;
+        background: rgba(0,0,0,0.5);
      }
      .main{
         font-size: 60px;
-        color: rgb(163, 112, 16);
+        color: rgb(247, 245, 242);
      }
      .icon{
         font-size: 200px;
@@ -15,15 +19,22 @@ page-confirmed-message {
      }
      .msg{
         font-size: 35px;
-        color: rgb(163, 112, 16);
+        color: rgb(238, 237, 237);
         text-align: center;
         flex-grow: 2;
      }
      .btn{
         button{
-            border-radius: 20px;
-            width: 60%;
-            left: 75px;
+            border-radius: 25px;
+            width: 33vh;
+            margin: auto;
+            background-color: seashell;
+            color: brown;
+           
+            
         }
+     }
+     .fa {
+         color: #fff;
      }
 }

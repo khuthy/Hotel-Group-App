@@ -27,8 +27,7 @@ export class ProfilePage {
   database: any;
   key : any;
   
-  buttonNameUpdate: boolean = false;
-  buttonNameSave: boolean = false;
+
 
   validation_messages = {
     'username': [
@@ -69,24 +68,6 @@ export class ProfilePage {
     if(user) {
       this.users.uid = user.uid;
       this.database = firebase.database().ref();
-      this.database.child('profile').orderByChild('userUid').equalTo(user.uid).on('value', (snap) => {
-       
-        if(snap.exists()) {
-          this.key = fetchData(snap)[0].key;
-          console.log(this.key);
-          
-        this.users.image = fetchData(snap)[0].Image;
-        this.users.contact = fetchData(snap)[0].Contact;
-        this.users.username = fetchData(snap)[0].Username;
-        this.users.bio = fetchData(snap)[0].Bio;
-        this.buttonNameUpdate = true;
-        }else {
-          console.log('create new profile');
-          this.buttonNameSave = true;
-          
-        }
-     
-      })
     }else {
       this.navCtrl.setRoot(LoginPage);
     }
@@ -156,7 +137,7 @@ export class ProfilePage {
     loaders.present();
       this.upload();
       
-      const ref = this.database.child('profile ').push();
+      const ref = this.database.child('profile').push();
 
   
 
@@ -182,38 +163,7 @@ export class ProfilePage {
    
   }
   
-  updateProfile(users: Users) {
-    let loaders = this.loadingCtrl.create({
-      content: 'Uploading, Please wait...',
-      duration: 300
-    });
-    let alertSuccess = this.alertCtrl.create({
-      title: 'Profile Updated',
-      subTitle: 'You have successfully updated your profile',
-      buttons: ['Ok']
-    })
-    if(this.profileFormValidation.valid) {
-      loaders.present();
-      const update = firebase.database().ref('profile/'+ this.key).update({
-      Image: users.image,
-      Contact: users.contact,
-      Username: users.username,
-      Bio: users.bio,
-      userUid: users.uid,
-      timestamp: Date()
-    });
-    this.navCtrl.pop();
-    alertSuccess.present();
-    }else {
-      let alert = this.alertCtrl.create({
-        title: 'error detected.',
-        subTitle: 'Your Inputs can\'t be empty',
-        buttons: ['Try again']
-      })
-      alert.present();
-    }
-    
-  }
+ 
 
 
 }

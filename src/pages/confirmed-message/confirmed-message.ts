@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
 
 /**
  * Generated class for the ConfirmedMessagePage page.
@@ -20,6 +21,9 @@ export class ConfirmedMessagePage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ConfirmedMessagePage');
+  }
+  gotohome() {
+    this.navCtrl.setRoot(HomePage);
   }
 
 }

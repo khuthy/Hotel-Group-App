@@ -10,7 +10,6 @@
     <div class="card">
       <div class="cardpic1"></div>
       <div class="cardpic2"></div>
-      <div class="cardpic3"></div>
       <div class="cardpic4"></div>
       <div class="cardpic5"></div>
     </div>
@@ -20,7 +19,7 @@
    <h4 style="text-align: center; color: #ffffff; margin-top: 5%;">Card Details</h4>
       <div class="detals">
       
-          <ion-item>
+          <ion-item style="background-color: transparent;color: seashell;">
             <ion-label style="color: seashell" floating>Card Holder Name</ion-label>
             <ion-input type="text" formControlName="name" name="name" [(ngModel)]="card.name" class="btn"></ion-input>
           </ion-item>
@@ -29,7 +28,7 @@
                 {{validate.message}}
               </div>
             </div>
-          <ion-item>
+          <ion-item style="background-color: transparent;color: seashell;">
               <ion-label style="color: seashell" floating>Card Number</ion-label>
               <ion-input  type="number" formControlName="number" name="number" [(ngModel)]="card.number" class="btn"></ion-input>
             </ion-item>
@@ -42,9 +41,9 @@
       </div>
       <div class="detals2">
         <div class="expDate">
-            <ion-item>
-                <ion-label>expiry Date</ion-label>
-                <ion-datetime formControlName="expiryDate" displayFormat="MM/DD" class="btn1" pickerFormat="DD MM" name="expiryDate" [(ngModel)]="card.expiryDate"></ion-datetime>
+            <ion-item style="background-color: transparent;color: seashell;">
+                <ion-label floating style="color: seashell">expiry Date</ion-label>
+                <ion-input type="date" formControlName="expiryDate" class="btn1" name="expiryDate" [(ngModel)]="card.expiryDate"></ion-input>
               </ion-item>
               <div class="error" *ngFor="let validate of validation_messages.expiryDate">
                   <div class="messages" *ngIf="paymentForm.get('expiryDate').hasError(validate.type) && (paymentForm.get('expiryDate').dirty || paymentForm.get('expiryDate').touched)">
@@ -54,16 +53,21 @@
         </div>
         <div class="secuCode">
            
-            <ion-item>
+            <ion-item style="background-color: transparent;color: seashell;">
                 <ion-label style="color: seashell" floating>Security Code</ion-label>
-                <ion-input type="datetime" name="securityCode" [(ngModel)]="card.securityCode" class="btn1"></ion-input>
+                <ion-input type="datetime" formControlName="securityCode" name="securityCode" [(ngModel)]="card.securityCode"></ion-input>
               </ion-item>
+              <div class="error" *ngFor="let validate of validation_messages.securityCode">
+                  <div class="messages" *ngIf="paymentForm.get('securityCode').hasError(validate.type) && (paymentForm.get('securityCode').dirty || paymentForm.get('securityCode').touched)">
+                    {{validate.message}}
+                  </div>
+                </div>
         </div>
       </div> 
       <div class="btnh">
        
-           <button ion-button class="btnpay" *ngIf="buttonNameSave" full round (click)="Payment()">Pay (R {{total}}.00)</button>
-           <button ion-button class="btnpay" *ngIf="buttonNameUpdate" full round (click)="updatePayment()">Pay (R {{total}}.00)</button>
+           <button ion-button class="btnpay" full round (click)="Payment()">Pay (R {{total}}.00)</button>
+         
       </div>
   </form>
   </div>

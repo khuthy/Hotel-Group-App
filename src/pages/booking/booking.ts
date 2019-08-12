@@ -19,6 +19,7 @@ import { PaymentPage } from '../payment/payment';
 })
 export class BookingPage {
 
+  checkDate;
 
  public childCount: number = 0;
  public notNegetiveAllowed: string = '';
@@ -36,6 +37,7 @@ export class BookingPage {
  }
  database = firebase.database().ref();
  MAX: number;
+ profile_key: any;
 
  validation_messages = {
   'checkin': [
@@ -56,6 +58,12 @@ export class BookingPage {
      public forms: FormBuilder,
      private loadingCtrl: LoadingController
      ) {
+      const check = new Date();
+      let year = check.getFullYear();
+      let month = check.getMonth();
+      let days = check.getDay();
+  
+     this.checkDate = year + '-' + days + '-' + month;
 
       this.bookingForm = this.forms.group({
         checkout: new FormControl('', Validators.compose([Validators.required])),
@@ -67,7 +75,7 @@ export class BookingPage {
     if(user) {
       this.key = this.navParams.data;
       this.booking.userUid = user.uid;
-
+      
      this.database.child('rooms').orderByKey().equalTo(this.key).on('value', (snap) => {
       if(snap.exists()) {
         
@@ -149,12 +157,12 @@ export class BookingPage {
 
   createBooking() {
    
-
+if(this.bookingForm.valid){
     let loading = this.loadingCtrl.create({
       content: '',
       duration: 300
     })
-    if(this.bookingForm.valid){
+    
       let monthCheckIn = this.booking.checkin.charAt(5)+this.booking.checkin.charAt(6);
      let dayCheckin = this.booking.checkin.charAt(8)+this.booking.checkin.charAt(9);
 
@@ -175,6 +183,7 @@ export class BookingPage {
       });
       alert.present();
      }else {
+      
       loading.present();
       let sum = parseFloat(dayCheckout)-parseFloat(dayCheckin);
       this.booking.total = Math.floor(this.booking.total * (sum + this.booking.childCount + this.booking.adultCount));
@@ -184,6 +193,13 @@ export class BookingPage {
       const ref = this.database.child('booking');
       const recordBooking =  ref.push();
 
+      this.database.child('profile').orderByChild('userUid').equalTo(this.booking.userUid).on('value', (snap) => {
+        this.profile_key  = fetchData(snap)[0].key;
+        console.log(this.profile_key);
+        
+        
+     });
+
      recordBooking.set({
       Checkin: this.booking.checkin,
       Checkout: this.booking.checkout,
@@ -191,30 +207,31 @@ export class BookingPage {
       Children: this.booking.childCount,
       roomKey: this.key,
       userUid: this.booking.userUid,
+      userProfileKey: this.profile_key,
       Price: this.booking.total,
       timeStamp: Date()
     })
 
     this.navCtrl.push(PaymentPage, this.booking.total);
-   
-    }
-    
-    
-    }else {
-      let alert = this.alertCtrl.create({
-        title: 'error detected.',
-        subTitle: 'Your Inputs can\'t be empty',
-        buttons: ['Try again']
-      })
-      alert.present();
-    } 
 
     
-  }
+}
+
   
   
 
+}   
+else {
+  let alert = this.alertCtrl.create({
+    title: 'error detected.',
+    subTitle: 'Your Inputs can\'t be empty',
+    buttons: ['Try again']
+  })
+  alert.present();
 
+}
   
+
+}
 
 }
